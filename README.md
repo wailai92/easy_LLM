@@ -7,6 +7,7 @@ Features:
 - Supports both single-turn and multi-turn interactions
 - Maintains conversation history as context
 - Uses system prompts to control model behavior
+- Saves chat history to a local file (JSON)
 
 API Usage:
 - /api/generate:
