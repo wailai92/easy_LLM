@@ -45,7 +45,7 @@ def chunk_text(text: str, chunk_size: int = 300) -> list[str]:
     return chunks
 
 
-def main() -> None:
+def main():
     client = chromadb.PersistentClient(path=CHROMA_PATH)
     collection = client.get_or_create_collection(name=COLLECTION_NAME)
 

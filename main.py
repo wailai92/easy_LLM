@@ -1,4 +1,5 @@
 import memory_save
+import build_index
 import requests
 import chromadb
 OLLAMA_URL_chat = "http://localhost:11434/api/chat"
@@ -96,6 +97,7 @@ def get_context(question, top_k = 3) -> list[str]:
         return []
 
 def main():
+    build_index.main()
     print("本地 LLM 聊天程式\n")
     print("輸入 exit 離開\n")
     print("搜尋更多指令輸入help(not done)\n")
