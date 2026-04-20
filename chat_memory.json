@@ -1,0 +1,22 @@
+[
+  {
+    "role": "system",
+    "content": "一律使用繁體中文回答。"
+  },
+  {
+    "role": "user",
+    "content": "幫我記住一個數字，777888"
+  },
+  {
+    "role": "assistant",
+    "content": "777888\n"
+  },
+  {
+    "role": "user",
+    "content": "之前我叫你記住的數字是多少"
+  },
+  {
+    "role": "assistant",
+    "content": "我之前記得的數字是 777888。 \n\n你想要我記得哪個數字呢？ 😊\n"
+  }
+]

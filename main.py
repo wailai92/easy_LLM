@@ -1,3 +1,4 @@
+import memory_save
 import requests
 
 OLLAMA_URL_chat = "http://localhost:11434/api/chat"
@@ -34,15 +35,11 @@ def main():
     print("本地 LLM 聊天程式\n")
     print("輸入 exit 離開\n")
 
-    messages = [
-        {
-            "role": "system",
-            "content": "一律使用繁體中文回答。"
-        }
-    ]
+    messages = memory_save.load_messages()
     while True:
         user_input = input("ask anything: ").strip()
         if user_input == "exit":
+            memory_save.save_messages(messages)
             break
         if not user_input:
             continue
