@@ -7,6 +7,7 @@ def load_messages() -> list[dict]:
         try:
             with open(MEMORY_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
+                data = data[-20:]
 
             if isinstance(data, list) and data:
                 return data
