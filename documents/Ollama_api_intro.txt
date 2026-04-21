@@ -1,0 +1,45 @@
+The following content are Ollama api intro
+OLLAMA_URL_EMBED = "http://localhost:11434/api/embed"
+example usage:
+def get_embedding(text: str) -> list[float]:
+    response = requests.post(
+        OLLAMA_URL_EMBED,
+        json={
+            "model": EMBED_MODEL,
+            "input": text
+        },
+        timeout=120
+    )
+    response.raise_for_status()
+    data = response.json()
+    return data["embeddings"][0]
+
+OLLAMA_URL_generate = "http://localhost:11434/api/generate"
+example usage:
+def ask_llm(prompt: str) -> str:
+    payload = {
+        "model": MODEL_NAME,
+        "prompt": prompt,
+        "stream": False
+    }
+
+    response = requests.post(OLLAMA_URL_generate, json=payload, timeout=120)
+    response.raise_for_status()
+
+    data = response.json()
+    return data["response"]
+
+OLLAMA_URL_chat = "http://localhost:11434/api/chat"
+example usage:
+def chat_llm(messages: list[dict]) -> str:
+    payload = {
+        "model": MODEL_NAME,
+        "messages": messages,
+        "stream": False
+    }
+
+    response = requests.post(OLLAMA_URL_chat, json=payload, timeout=120)
+    response.raise_for_status()
+
+    data = response.json()
+    return data["message"]["content"]

@@ -23,7 +23,7 @@ def get_embedding(text: str) -> list[float]:
     return data["embeddings"][0]
 
 
-def chunk_text(text: str, chunk_size: int = 300) -> list[str]:
+def chunk_text(text: str, chunk_size: int = 300, overlap: int = 50) -> list[str]:
     lines = text.splitlines()
     chunks = []
     current = []
@@ -47,6 +47,12 @@ def chunk_text(text: str, chunk_size: int = 300) -> list[str]:
 
 def main():
     client = chromadb.PersistentClient(path=CHROMA_PATH)
+
+    try:
+        client.delete_collection(name=COLLECTION_NAME)
+    except:
+        pass
+
     collection = client.get_or_create_collection(name=COLLECTION_NAME)
 
     doc_id = 0
