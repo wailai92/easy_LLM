@@ -27,18 +27,18 @@ User Query
 → LLM Response Generation
 
 ## API Usage
-- /api/generate:
-  Used for single-turn text generation. It takes a plain prompt as input and returns a one-time response without preserving conversation history.
+- /api/generate:  Used for single-turn text generation. <br>
+It takes a plain prompt as input and returns a one-time response without preserving conversation history.
 
-- /api/chat:
-  Used for multi-turn conversations. It stores previous messages, including system prompts, user inputs, and assistant responses, in a messages list. On each new turn, the full message history is sent back to the model to generate a context-aware reply.
+- /api/chat:  Used for multi-turn conversations. <br>
+It stores previous messages, including system prompts, user inputs, and assistant responses, in a messages list. On each new turn, the full message history is sent back to the model to generate a context-aware reply.
 
 ## Dual Modes:
-- Chat Mode:
+- Chat Mode:  <br>
   A standard multi-turn conversation mode that maintains chat history and simulates memory using previous messages.
 
-- Search Mode:
-  A retrieval-augmented mode that:
+- Search Mode:  <br>
+  A retrieval-augmented mode that:  
   - Converts user queries into embeddings
   - Retrieves the most relevant document chunks
   - Filters low-quality results using similarity distance
