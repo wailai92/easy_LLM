@@ -155,7 +155,7 @@ def main():
                 print("找不到相關資料\n")
                 continue
             
-            print(f"{dists[0]}, {dists[1]}\n")
+            #print(f"{dists[0]}, {dists[1]}\n")
             best = dists[0]
             if len(dists) > 1:
                 second = dists[1]
