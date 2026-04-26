@@ -1,2 +1,0 @@
-RAG stands for Retrieval-Augmented Generation.
-It retrieves relevant document chunks before sending them to the language model.
