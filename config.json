@@ -1,0 +1,21 @@
+{
+  "model": {
+    "chat_model_1": "gemma3:1b",
+    "embedding_model": "embeddinggemma"
+  },
+  "rag": {
+    "top_k": 3,
+    "distance_threshold": 1,
+    "data_overlap": 50
+  },
+  "server": {
+    "chat_url": "http://localhost:11434/api/chat",
+    "generate_url": "http://localhost:11434/api/generate",
+    "embed_url": "http://localhost:11434/api/embed"
+  },
+  "db_path": {
+    "CHROMA_PATH": "chroma_db",
+    "COLLECTION_NAME": "rag_docs",
+    "DOCS_DIR": "documents"
+  }
+}

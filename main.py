@@ -1,5 +1,5 @@
-import memory_save
-import build_index
+import core.memory_save as memory_save
+import core.build_index as build_index
 import requests
 import chromadb
 OLLAMA_URL_chat = "http://localhost:11434/api/chat"
@@ -13,6 +13,20 @@ CHAT_MODE = ["RECORD", "SEARCH"]
 
 CHROMA_PATH = "chroma_db"
 COLLECTION_NAME = "rag_docs"
+
+HELP_COMMANDS = {
+    "exit": "離開程式",
+    "chmod s": "切換到搜尋模式（RAG）",
+    "chmod r": "切換到聊天模式",
+    "help": "顯示所有指令",
+    "rebuild": "db rebuild, 有新增新檔案時使用"
+}
+
+def show_help():
+    print("\n=== Available Commands ===\n")
+    for cmd, desc in HELP_COMMANDS.items():
+        print(f"{cmd:10} : {desc}")
+    print()
 
 def chat_llm(messages: list[dict]) -> str:
     payload = {
@@ -47,12 +61,11 @@ def search_llm(question: str, contexts:list[str]) ->str:
             "role": "system",
             "content": (
                 "你是一個文件問答助手。"
-                "請只根據提供的文件內容回答。"
-                "如果文件內容中有明確答案，就直接回答，不要補充多餘內容。"
-                "如果文件內容中沒有答案，就只回答「我不知道」。"
+                "請只根據提供的文件內容回答問題。"
+                "如果文件中有明確答案，請直接回答，不要說『我不知道』。"
+                "只有在完全沒有相關資訊時，才回答『我不知道』。"
                 "你必須一律使用繁體中文回答。"
                 "如果文件內容是英文，請翻譯成繁體中文後再回答。"
-                "不要直接輸出英文原文，除非使用者要求英文。"
             )
         },
         {
@@ -127,8 +140,11 @@ def main():
             print("更改模式成RECORD\n")
             continue
         elif user_input == "rebuild":
-                build_index.main()
-                continue
+            build_index.main()
+            continue
+        elif user_input == "help":
+            show_help()
+            continue
         elif not user_input:
             continue
         if chat_mode == "RECORD":
