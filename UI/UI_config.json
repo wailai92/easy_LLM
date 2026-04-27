@@ -1,6 +1,18 @@
 {
   "scale": {
-    "screen_height": 700,
-    "screen_width": 1050
+    "screen_height": 1300,
+    "screen_width": 2000,
+    "pull_height": 1300,
+    "pull_width":250
+  },
+  "font_default": {
+    "name": null,
+    "size": 36,
+    "bold": false,
+    "italic": false
+  },
+  "rect_border": {
+    "color_blue": [135, 206, 235],
+    "width": 3
   }
 }

@@ -21,9 +21,10 @@ class Kernel():
         with open("UI/UI_config.json", "r", encoding="utf-8") as f:
             self.UI_config = json.load(f)
         self.messages = memory_save.load_messages()
-        self.main = main_page.Main_page()
-        self.search = search_page.Search_page()
-        self.setting = setting_page.Setting_page()
+        pygame.init()
+        self.main = main_page.Main_page(self.UI_config)
+        self.search = search_page.Search_page(self.UI_config)
+        self.setting = setting_page.Setting_page(self.UI_config)
         self.current_page = self.main
 
     def pygame_run(self):
