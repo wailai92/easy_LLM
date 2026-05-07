@@ -14,5 +14,8 @@
   "rect_border": {
     "color_blue": [135, 206, 235],
     "width": 3
+  },
+  "common_color":{
+    
   }
 }

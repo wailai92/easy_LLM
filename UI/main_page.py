@@ -1,6 +1,7 @@
 import pygame
 import os
 from UI.component.button import Button
+from UI.component.button_list import Button_list
 class Main_page():
     def __init__(self, UI_config):
         self.next_page = None
@@ -15,7 +16,10 @@ class Main_page():
         self.pull = False
         self.border_color = tuple(self.UI_config["rect_border"]["color_blue"])
         self.border_width = self.UI_config["rect_border"]["width"]
+        self.pull_subsurface = None
+        self.word_color = []
     def draw(self, screen):
+        self.mouse_pos = pygame.mouse.get_pos()
         screen.fill("black")
         if self.pull:
             left = self.pull_rect
@@ -29,7 +33,26 @@ class Main_page():
         pygame.draw.rect(screen, self.border_color, total_rect, self.border_width)
         pygame.draw.line(screen, self.border_color, (left.right, 0), (left.right, total_rect.height), self.border_width)
 
-        self.mouse_pos = pygame.mouse.get_pos()
+        if hasattr(self, "pull_list"):
+            #兩個按鈕
+            if self.pull_list.button[0].rect.collidepoint(self.mouse_pos):
+                self.pull_list.button[0].word_color_change((155, 155, 155))
+                self.pull_list.button[1].word_color_change((255, 255, 255))
+            elif self.pull_list.button[1].rect.collidepoint(self.mouse_pos):
+                self.pull_list.button[1].word_color_change((155, 155, 155))
+                self.pull_list.button[0].word_color_change((255, 255, 255))
+            else:
+                self.pull_list.button[0].word_color_change((255, 255, 255))
+                self.pull_list.button[1].word_color_change((255, 255, 255))
+
+        if self.pull_subsurface == None:
+            self.pull_subsurface = screen.subsurface(self.pull_rect)
+            self.pull_list = Button_list(self.pull_subsurface, ["search mode", "setting"], (3, 3), (246, 50), (0, 0, 0), self.font, [(255, 255, 255), (255, 255, 255)])
+        if self.pull:
+            self.pull_list.draw()
+
+        
+
         if self.mouse_pos[0] > left.width:
             self.pull = False
         else:

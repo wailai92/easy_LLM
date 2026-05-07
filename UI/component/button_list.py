@@ -10,3 +10,6 @@ class Button_list():
             self.button.append(Button(screen, font, word_color[self.button_number], (self.x, self.y), size, color, text, False))
             self.y += self.height
             self.button_number += 1
+    def draw(self):
+        for button in self.button:
+            button.draw()
