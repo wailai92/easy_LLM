@@ -34,16 +34,13 @@ class Main_page():
         pygame.draw.line(screen, self.border_color, (left.right, 0), (left.right, total_rect.height), self.border_width)
 
         if hasattr(self, "pull_list"):
+            for count in range(0, self.pull_list.button_number):
+                self.pull_list.button[count].word_color_change((255, 255, 255))
             #兩個按鈕
             if self.pull_list.button[0].rect.collidepoint(self.mouse_pos):
                 self.pull_list.button[0].word_color_change((155, 155, 155))
-                self.pull_list.button[1].word_color_change((255, 255, 255))
             elif self.pull_list.button[1].rect.collidepoint(self.mouse_pos):
                 self.pull_list.button[1].word_color_change((155, 155, 155))
-                self.pull_list.button[0].word_color_change((255, 255, 255))
-            else:
-                self.pull_list.button[0].word_color_change((255, 255, 255))
-                self.pull_list.button[1].word_color_change((255, 255, 255))
 
         if self.pull_subsurface == None:
             self.pull_subsurface = screen.subsurface(self.pull_rect)
