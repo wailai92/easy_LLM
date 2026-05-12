@@ -61,8 +61,11 @@ class Main_page():
         
         if self.pull:
             self.pull_list.draw()
+            #local_position = (self.mouse_pos[0] + self.pull_subsurface.get_width(), self.mouse_pos[1])
+            self.pull_chat_input_box.draw(self.pull_mainsubsurface)
 
-        #self.nopull_chat_input_box.draw(self.nopull_mainsubsurface)
+        else:
+            self.nopull_chat_input_box.draw(self.nopull_mainsubsurface)
 
 
         if self.mouse_pos[0] > left.width:
@@ -71,4 +74,10 @@ class Main_page():
             self.pull = True
 
     def handle_event(self, event):
-        pass
+        if self.pull and self.pull_subsurface is not None:
+            if self.pull_chat_input_box.input_rect.collidepoint((event.pos[0] + self.pull_subsurface.get_width(), event.pos[1])):
+                self.input_active = True
+            else:
+                self.input_active = False
+        else:
+            pass
