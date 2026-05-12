@@ -2,6 +2,7 @@ import pygame
 import os
 from UI.component.button import Button
 from UI.component.button_list import Button_list
+from UI.component.input_box import Input_box
 class Main_page():
     def __init__(self, UI_config):
         self.next_page = None
@@ -17,7 +18,15 @@ class Main_page():
         self.border_color = tuple(self.UI_config["rect_border"]["color_blue"])
         self.border_width = self.UI_config["rect_border"]["width"]
         self.pull_subsurface = None
+        self.pull_mainsubsurface = None
+        self.nopull_subsurface = None
+        self.nopull_mainsubsurface = None
         self.word_color = []
+        self.input_active = False
+        self.color_active = (255, 255, 255)
+        self.color_passive = (155, 155, 155)
+        self.pull_chat_input_box = Input_box(50, 50, 200, 30, (128, 128, 128), self.color_active, self.color_passive, self.font)
+        self.nopull_chat_input_box = Input_box(50, 50, 200, 30, (128, 128, 128), self.color_active, self.color_passive, self.font)
     def draw(self, screen):
         self.mouse_pos = pygame.mouse.get_pos()
         screen.fill("black")
@@ -35,20 +44,26 @@ class Main_page():
 
         if hasattr(self, "pull_list"):
             for count in range(0, self.pull_list.button_number):
-                self.pull_list.button[count].word_color_change((255, 255, 255))
+                self.pull_list.button[count].word_color_change(self.color_passive)
             #兩個按鈕
             if self.pull_list.button[0].rect.collidepoint(self.mouse_pos):
-                self.pull_list.button[0].word_color_change((155, 155, 155))
+                self.pull_list.button[0].word_color_change(self.color_active)
             elif self.pull_list.button[1].rect.collidepoint(self.mouse_pos):
-                self.pull_list.button[1].word_color_change((155, 155, 155))
+                self.pull_list.button[1].word_color_change(self.color_active)
 
         if self.pull_subsurface == None:
             self.pull_subsurface = screen.subsurface(self.pull_rect)
-            self.pull_list = Button_list(self.pull_subsurface, ["search mode", "setting"], (3, 3), (246, 50), (0, 0, 0), self.font, [(255, 255, 255), (255, 255, 255)])
+            self.pull_list = Button_list(self.pull_subsurface, ["search mode", "setting"], (3, 3), (246, 50), (0, 0, 0), self.font, [self.color_passive, self.color_passive])
+            
+            self.pull_mainsubsurface = screen.subsurface(self.pullmain_rect)
+            self.nopull_subsurface = screen.subsurface(self.nopull_rect)
+            self.nopull_mainsubsurface = screen.subsurface(self.nopullmain_rect)
+        
         if self.pull:
             self.pull_list.draw()
 
-        
+        #self.nopull_chat_input_box.draw(self.nopull_mainsubsurface)
+
 
         if self.mouse_pos[0] > left.width:
             self.pull = False
